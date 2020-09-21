@@ -1,16 +1,9 @@
 # Overview
-React Session is a session management library for React web applications. The library is a lightweight absraction built on the local-storage package and is designed to work independently or in partnership with the React Data library also authored by Mile Hi Labs.
+React Session is a session management library for React web applications. The library is a lightweight abstraction built on the local-storage package and is designed to work independently or in partnership with the React Data library also authored by Mile Hi Labs.
 
 
 # How it Works
-React Data uses the [Context Hooks](https://reactjs.org/docs/context.html) to construct a global data store that consists of 4 main components that work in the following manner:
-
-![React Data Store](./src/assets/react-data.jpg)
-
-Per the image above, the Store acts as a central data hub that interconnects your Adapters, Serializers, and Models to communicate with your API, retrieve your data, and then store that data locally so it's ready to use. 
-React Data currently assumes your using a [JSON API](https://jsonapi.org/) with REST patterns. For now, we think this approach offers a well-documented and efficient way to get up and running quickly.
-
-To learn more about React Data, checkout the **Advanced Usage** section or visit our [API Documentation](https://app.gitbook.com/@mile-hi-labs/s/react-data/) online. 
+React Session uses the [Context Hook](https://reactjs.org/docs/context.html) api to provide a global session management library for users. When used properly, React session will automatically detect if a user stored their credentials, authenticate them, and load their data into the data store. 
 
 
 # Quick Start
@@ -43,7 +36,7 @@ export default App;
 Then, login  or register your user using whatever method you prefer (ie email or facebook) and then pass the user's credentials to the session for safe and secure storage like so:
 
 ```
-Coming soon...r
+Coming soon...
 ```
 
 
