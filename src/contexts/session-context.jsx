@@ -32,7 +32,8 @@ class SessionContext extends Component {
     try {
       if(!this.props.store) {  return };
       this.setState({ isLoading: true });
-      let user = await this.props.store.queryRecord('user', userId, params);
+      await this.props.store.adapterFor('app').then(adapter => adapter.set('token', token));
+      let user = await this.props.store.queryRecord('user', userId, this.props.params);
       await this.setState({ token: token, user: user });
     } catch(e) {
       throw e;
