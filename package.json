@@ -10,9 +10,15 @@
     "build:prod": "webpack --env.production",
     "test": "test"
   },
+  "publishConfig": { 
+    "registry": "https://npm.pkg.github.com/" 
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com//milehilabs/react-session"
+  },
+  "bugs": {
+    "url": "https://github.com//milehilabs/react-session/issues"
   },
   "keywords": [
     "react",
