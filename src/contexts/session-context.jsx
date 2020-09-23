@@ -23,33 +23,32 @@ class SessionContext extends Component {
   componentDidMount() {
     let userId = LocalStorage.get('userId');
     let token = LocalStorage.get('token');
-    userId && token ? this.loadUser(userId, token) : this.setState({ isLoading: false });
+    userId && token ? this.loadUser(this.props.model, userId, token, this.props.params) : this.setState({ isLoading: false });
   }
 
   
   // Tasks
-  async loadUser(userId, token, params = {}, silent = false) {
+  async loadUser(model, userId, token, params = {}, silent = false) {
     try {
       if(!this.props.store) {  return };
       this.setState({ isLoading: true });
       await this.props.store.adapterFor('app').then(adapter => adapter.set('token', token));
-      let user = await this.props.store.queryRecord('user', userId, this.props.params);
+      let user = await this.props.store.queryRecord(model, userId, params);
       await this.setState({ token: token, user: user });
+      logger('Session authenticated: ', this.state);
     } catch(e) {
-      throw e;
+      await this.logout();
     } finally {
       this.setState({ isLoading: false });
-      logger(`Session ${this.state.isAuthenticated() ? 'authenticated!' : 'n/a'}`);
     }
   }
 
-  async authenticate(user) {
+  async authenticate(model, data) {
     try {
-      LocalStorage.set('userId', user.id);
-      LocalStorage.set('token', user.token);
-      user = await this.context.createRecord('user', user);
-      await this.loadUser(user.id, user.token, {}, true);
-      logger('New Session: ', this.state);
+      LocalStorage.set('userId', data.id);
+      LocalStorage.set('token', data.token);
+      logger('session started: ', model, data);
+      await this.loadUser(model, data.id, data.token, {}, true);
     } catch(e) {
       throw e;
     }
@@ -59,7 +58,7 @@ class SessionContext extends Component {
     try {
       localStorage.clear();
       await this.setState({ userId: '', token: '', user: {} });
-      logger('Session: ', this.state);
+      logger('Session terminated: ', this.state);
     } catch(e) {
       throw e;
     }
@@ -74,6 +73,8 @@ class SessionContext extends Component {
 
   // Render
   render() {
+    const { isLoading } = this.state;
+
     return (
       <Session.Provider value={this.state}>
         {this.props.children}
