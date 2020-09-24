@@ -1,15 +1,15 @@
-# Overview
-React Session is a session management library for React web applications. The library is a lightweight abstraction built on the local-storage package and is designed to work independently or in partnership with the React Data library also authored by Mile Hi Labs.
+## Overview
+React Session is a session management library for React web applications. The library is a lightweight abstraction built on local-storage and is designed to work independently or in partnership with [React Data](https://github.com/Mile-Hi-Labs/react-data).
 
 
-# How it Works
-React Session uses the [Context Hook](https://reactjs.org/docs/context.html) api to provide a global session management library for users. When used properly, React session will automatically detect if a user stored their credentials, authenticate them, and load their data into the data store. 
+## How it Works
+React Session uses the [Context Hook](https://reactjs.org/docs/context.html) api to provide a global session where you can authenticate and persist the current user across multiple browser windows or sessions. Once authenticated, React-Session will also automatically add a JWT token to all API requests sent using React Data. To learn more about React Session, visit the [API Documentation](https://app.gitbook.com/@mile-hi-labs/s/react-session/). 
 
 
-# Quick Start
+## Quick Start
 `npm install @mile-hi-labs/react-session`
 
-Add the following to your `app.jsx` file or near the top of your application. This will import the store and make it available to any route / component downstream. 
+Add the following to your `app.jsx` file or near the top of your application.
 
 ```
 # app.jsx
@@ -36,134 +36,158 @@ export default App;
 Then, login  or register your user using whatever method you prefer (ie email or facebook) and then pass the user's credentials to the session for safe and secure storage like so:
 
 ```
-Coming soon...
+import React, { useState } from 'react';
+import { withSession } from '@mile-hi-labs/react-session';
+import Auth from 'apis/auth';
+import Form from 'react-bootstrap/Form';
+
+const LoginForm = (props) => {  
+  const { session, nextAction } = props;
+  const [ email, setEmail ] = useState('');
+  const [ password, setPassword ] = useState('');
+  const [ taskRunning, setTaskRunning ] = useState(false);
+
+  
+  // Tasks
+  const login = async () => {
+    try { 
+    	setTaskRunning(true);
+      let model = await Auth.login({email: email, password: password});
+      await session.authenticate('admin', model);
+      console.log('Login Succeeded!');
+      nextAction();
+    } catch(e) {
+      console.log(e);
+    } finally {
+      setTaskRunning(false);
+    }
+  }
+
+
+  // Methods
+  const handleSubmit = (e) => {
+    login();
+    e.preventDefault();
+  }
+
+
+  // Render
+  return (
+    <Form onSubmit={handleSubmit}>
+      <Form.Group controlId='email'>
+        <Form.Label>Email Address</Form.Label>
+        <Form.Control 
+          type='email' 
+          placeholder='redford@hollywood.com' 
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+        />
+      </Form.Group>
+
+      <Form.Group controlId='email'>
+        <Form.Label>Password</Form.Label>
+        <Form.Control 
+          type='password' 
+          placeholder='••••••••' 
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+        />
+      </Form.Group>
+
+      <Form.Group>
+        <BasicButton
+          title='Login'
+          icon='chevron-right'
+          taskRunning={taskRunning}
+          onClick={() => login()}
+        />
+      </Form.Group>
+    </Form>
+  )
+}
+
+export default withSession(LoginForm);
 ```
 
 
 Then, you can access the session from any route or component like so:
 
 ```
-# routes/mkt/index.jsx
+# components/bootstrap/navbar-wrapper.jsx
 
 import React, { useEffect } from 'react';
 import { withSession } from '@mile-hi-labs/react-session';
-import UserList from 'components/user/user-list';
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
 
-const MktIndex = (props) => {
-	const { store } = props;
-	const [ users, setUsers ] = useState([]);
-	const [ loading, setLoading ] = useState([]);
-
-	// Hooks
-	useEffect(() => {
-		fetchData()
-	}, []);
-
-
-	// Async
-	async fetchData = () => {
-		try {
-			setLoading(true);
-			let users = this.props.store.query('user', {});
-			this.setState({ users: users });
-		} catch(e) {
-			console.log(e);
-		} finally {
-			setLoading(false);
-		}
-	}
-
-	// Render
-	render() {
-		const { store } = this.props;
-		const { users, isLoading } = this.state;
+const NavBarWrapper = (props) => {
+	const { session } = props;
 		
-		return (
-			<div className='container'>
-				{loading ? (
-					<h6>...loading...</h6>
+	return (
+			<Navbar collapseOnSelect expand='lg' bg='light' variant='light'>
+			<Navbar.Brand href='/' className='mr-15'>Company Name</Navbar.Brand>
+			<Nav className='ml-auto'>
+				{session.isAuthenticated() ? (
+					<Nav.Link className='nav-user'>
+						<img src={session.user.photo} className='mr-15'/>
+						<h6>{session.user.name}</h6>
+					</Nav.Link>
 				) : (
-					<UserList users={users}/>
+					<Fragment>
+						<Nav.Link as={Link} to='/login'>Login</Nav.Link>
+						<Nav.Link as={Link} to='/register'>Register</Nav.Link>
+					</Fragment>
 				)}
-			</div>
-		)
-	}
+			</Nav>
+		</Navbar>
+	)
 }
 
-export default withSession(MktIndex);
+export default withSession(NavBarWrapper);
 
 ```
 
 
+## FAQ
 
-# Advanced Usage
-While React Session is designed to work right out-the-box with minimal configuration, you can also link the library with @mile-hi-labs/react-data library to automatically detect, load, and configure the store with their credentials in a single network call. 
-To do, simply modify the `app.jsx` file shown above with the following:
-
-
-
-# API
-Coming soon...
-
-
-
-# FAQ
-
-### Why React Data?
+#### Why React Session?
 State management libraries are often complex, opinionated, and require quite a bit of configuration. We love React for it's simplicity and configuration so we wanted 
 to build a state management library to match. 
 
 
-### What inspired React Data? 
-React Data is heavily inspired by the core elements of [Ember-Data](https://emberjs.com) in a much smaller and, dare we say universal, package.
+#### What inspired React Session? 
+React Session was heavily inspired by [Ember-Simple-Auth](https://emberjs.com).
 
 
-### Tell me more about React Data's size?
-At 84KB (22.5KB gzipped), React Data is tiny compared to it's utility as a data layer playing a pivotal role in your application development. 
+#### Why should I use React Session
+React Sesison is a fast, easy, and lightweight tool to manage the current user for your application. 
 
 
-### Tell me more about performance?
-React Data uses dynamic imports to lazy load and cache any Adapters, Serializers, or Models that you've added to your project. 
-That way, React Data maintains a small footprint during the initial page load and then loads more when it's requested. 
+#### Development vs Production Mode
+React Session comes pre-bundled for production however you can pass in the `debug` option set to `true` if you'd like additional logging.
 
 
-### Tell me more about configuration?
-React Data uses on a base adapter, serializer, and model to provide the foundation for those  functionality that'll become second-nature as you get going.
+#### Who's using React Session?
+React Session is currently being being used by [Blush](https://blushednow.com). 
+If you're using React Session in your application, send us a message!
+
+#### Does React Session support SSR?
+React Session won't block SSR however it does rely on browser-side cookies to authenticate the session meaning the current user will not be available on the initial page load.
 
 
-### Why should I use React Data
-React Data takes a conventional approach to app development while still allowing plenty of configuration for advanced developers. 
-
-
-### Are there any best-practices I should be aware of?
-You shouldn't overload the store with data that isn't being used or is no longer needed. We suggest keeping an eye on the data being loaded into the store and clearing any unused data
-regularly to keep performance at it's best.
-
-
-### Development vs Production Mode
-React Data comes pre-bundled for production however it does read your `NODE_ENV` variable to provide some logging and time stamps for performance.
-
-
-### Who's using React Data?
-React Data is currently being being used by [Beauty Broker](https://beautybroker.io), [Blush](https://blushednow.com), and [Chartz](https://chartz.io). 
-If you're using React Data in your application, we'd love to hear / see what you have going on!
-
-### Does React Data support SSR?
-React Data currently does not support SSR as it relies on [Axios](https://github.com/axios/axios) for server communication which is an HTTP client. We're going to switch to a Fetch polyfill in an upcoming release that'll support SSR. 
-
-
-# Development
+## Development
+This project uses Webpack and comes with both a development and production environment. See `package.json` for more details. 
 - Clone this repository
 - Run `npm link` from this library
 - Open up a project where you'd like to use this library
-- Run `npm link react-data` from your project
+- Run `npm link react-session` from your project
 - You can now develop both projects simultaneously
-- Run `npm run build` to push code from the library to your project
+- Run `npm run build` to push code from the library to your project and debug via developer tools.
 
 
-# Links
-- [Github](https://github.com/MileHiLabs/react-data)
-- [API Documentation](https://app.gitbook.com/@mile-hi-labs/s/react-data/)
+## Links
+- [Github](https://github.com/MileHiLabs/react-session)
+- [API Documentation](https://app.gitbook.com/@mile-hi-labs/s/react-session/)
 - [Mile Hi Labs](https://milehilabs.io)
 
 

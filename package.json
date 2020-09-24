@@ -1,15 +1,14 @@
 {
   "name": "@mile-hi-labs/react-session",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A session management library for React applications.",
   "homepage": "https://github.com/mile-hi-labs/react-session#readme",
-  "main": "./lib/index.js",
-  "author": "Eric Hubbell",
   "license": "MIT",
-  "scripts": {
-    "build": "webpack --env.development",
-    "build:prod": "webpack --env.production",
-    "test": "test"
+  "main": "./lib/index.js",
+  "author": {
+    "name": "Eric Hubbell",
+    "email": "eric@erichubbell.com",
+    "url": "https://github.com/ehubbell"
   },
   "repository": {
     "type": "git",
@@ -25,6 +24,11 @@
     "authentication",
     "react-data"
   ],
+  "scripts": {
+    "build": "webpack --env.development",
+    "build:prod": "webpack --env.production",
+    "test": "test"
+  },
   "devDependencies": {
     "babel-core": "^6.21.0",
     "babel-loader": "^7.1.4",
