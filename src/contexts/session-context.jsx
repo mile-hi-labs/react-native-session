@@ -10,7 +10,7 @@ class SessionContext extends Component {
     this.state = {
       user: {},
       token: null,
-      isLoading: true,
+      loading: true,
       loadUser: this.loadUser.bind(this),
       isAuthenticated: this.isAuthenticated.bind(this),
       authenticate: this.authenticate.bind(this),
@@ -23,23 +23,23 @@ class SessionContext extends Component {
   componentDidMount() {
     let userId = LocalStorage.get('userId');
     let token = LocalStorage.get('token');
-    userId && token ? this.loadUser(this.props.model, userId, token, this.props.params) : this.setState({ isLoading: false });
+    userId && token ? this.loadUser(this.props.model, userId, token, this.props.params) : this.setState({ loading: false });
   }
 
   
   // Tasks
-  async loadUser(model, userId, token, params = {}, silent = false) {
+  async loadUser(model, modelId, token, params = {}, silent = false) {
     try {
       if(!this.props.store) {  return };
-      this.setState({ isLoading: true });
+      this.setState({ loading: true });
       await this.props.store.adapterFor('app').then(adapter => adapter.set('token', token));
-      let user = await this.props.store.queryRecord(model, userId, params);
-      await this.setState({ token: token, user: user });
+      let storeModel = await this.props.store.queryRecord(model, modelId, params);
+      await this.setState({ token: token, user: storeModel });
       logger('Session authenticated: ', this.state);
     } catch(e) {
       await this.logout();
     } finally {
-      this.setState({ isLoading: false });
+      this.setState({ loading: false });
     }
   }
 
@@ -73,7 +73,7 @@ class SessionContext extends Component {
 
   // Render
   render() {
-    const { isLoading } = this.state;
+    const { loading } = this.state;
 
     return (
       <Session.Provider value={this.state}>
