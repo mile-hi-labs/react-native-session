@@ -10,11 +10,11 @@ class SessionContext extends Component {
     this.state = {
       user: {},
       token: null,
-      loading: true,
       loadUser: this.loadUser.bind(this),
       isAuthenticated: this.isAuthenticated.bind(this),
       authenticate: this.authenticate.bind(this),
       logout: this.logout.bind(this),
+      loaded: false,
     };
   }
 
@@ -30,9 +30,9 @@ class SessionContext extends Component {
   // Tasks
   async loadUser(model, modelId, token, params = {}, silent = false) {
     try {
-      if(!this.props.store) {  return };
+      if (!this.props.store) {  return };
       this.setState({ loading: true });
-      await this.props.store.adapterFor('app').then(adapter => adapter.set('token', token));
+      await this.props.store.adapterFor('app').set('token', token);
       let storeModel = await this.props.store.queryRecord(model, modelId, params);
       await this.setState({ token: token, user: storeModel });
       logger('Session authenticated: ', this.state);
