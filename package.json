@@ -1,6 +1,6 @@
 {
   "name": "@mile-hi-labs/react-session",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "A session management library for React applications.",
   "homepage": "https://github.com/mile-hi-labs/react-session#readme",
   "license": "MIT",
