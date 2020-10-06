@@ -23,7 +23,7 @@ class SessionContext extends Component {
   componentDidMount() {
     let userId = LocalStorage.get('userId');
     let token = LocalStorage.get('token');
-    userId && token ? this.loadUser(this.props.model, userId, token, this.props.params) : this.setState({ loading: false });
+    userId && token ? this.loadUser(this.props.model, userId, token, this.props.params) : this.setState({ loaded: true });
   }
 
   
@@ -31,7 +31,6 @@ class SessionContext extends Component {
   async loadUser(model, modelId, token, params = {}, silent = false) {
     try {
       if (!this.props.store) {  return };
-      this.setState({ loading: true });
       await this.props.store.adapterFor('app').set('token', token);
       let storeModel = await this.props.store.queryRecord(model, modelId, params);
       await this.setState({ token: token, user: storeModel });
@@ -39,7 +38,7 @@ class SessionContext extends Component {
     } catch(e) {
       await this.logout();
     } finally {
-      this.setState({ loading: false });
+      this.setState({ loaded: true });
     }
   }
 
@@ -73,8 +72,8 @@ class SessionContext extends Component {
 
   // Render
   render() {
-    const { loading } = this.state;
-
+    const { loaded } = this.state;
+    
     return (
       <Session.Provider value={this.state}>
         {this.props.children}
