@@ -1,6 +1,6 @@
-import { SessionContext, withSession } from 'contexts/session-context';
+import { SessionProvider, withSession } from 'contexts/session-context';
 
 export {
-	SessionContext,
+	SessionProvider,
 	withSession,
 }

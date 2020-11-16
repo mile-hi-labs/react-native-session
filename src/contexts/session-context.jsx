@@ -2,23 +2,23 @@ import React, { Component } from 'react';
 import LocalStorage from 'local-storage';
 import { logger } from 'utils/helpers';
 
-const Session = React.createContext();
+const SessionContext = React.createContext();
 
-class SessionContext extends Component {
+class SessionProvider extends Component {
   constructor(props) {
     super(props);
     this.state = {
       user: {},
       token: null,
       loadUser: this.loadUser.bind(this),
-      isAuthenticated: this.isAuthenticated.bind(this),
+      authenticated: this.authenticated.bind(this),
       authenticate: this.authenticate.bind(this),
       logout: this.logout.bind(this),
       loaded: false,
     };
   }
 
-  
+
   // Hooks
   componentDidMount() {
     let userId = LocalStorage.get('userId');
@@ -26,14 +26,14 @@ class SessionContext extends Component {
     userId && token ? this.loadUser(this.props.model, userId, token, this.props.params) : this.setState({ loaded: true });
   }
 
-  
+
   // Tasks
-  async loadUser(model, modelId, token, params = {}, silent = false) {
+  async loadUser(modelName, modelId, token, params = {}) {
     try {
       if (!this.props.store) {  return };
       await this.props.store.adapterFor('app').set('token', token);
-      let storeModel = await this.props.store.queryRecord(model, modelId, params);
-      await this.setState({ token: token, user: storeModel });
+      let model = await this.props.store.queryRecord(modelName, modelId, params);
+      await this.setState({ token: token, user: model });
       logger('Session authenticated: ', this.state);
     } catch(e) {
       await this.logout();
@@ -47,7 +47,7 @@ class SessionContext extends Component {
       LocalStorage.set('userId', data.id);
       LocalStorage.set('token', data.token);
       logger('session started: ', model, data);
-      await this.loadUser(model, data.id, data.token, {}, true);
+      await this.loadUser(model, data.id, data.token, {});
     } catch(e) {
       throw e;
     }
@@ -65,7 +65,7 @@ class SessionContext extends Component {
 
 
   // Methods
-  isAuthenticated() {
+  authenticated() {
     return this.state.user.id ? true : false;
   }
 
@@ -73,26 +73,22 @@ class SessionContext extends Component {
   // Render
   render() {
     const { loaded } = this.state;
-    
+    const { children } = this.props;
+
     return (
-      <Session.Provider value={this.state}>
-        {this.props.children}
-      </Session.Provider>
+      <SessionContext.Provider value={this.state}>
+        {children}
+      </SessionContext.Provider>
     )
   }
 };
 
-const withSession = function(WrappedComponent) {
-  return class extends React.Component {
-
-    render() {
-      return (
-        <Session.Consumer>
-          {state => <WrappedComponent session={state} {...this.props} />}
-        </Session.Consumer>
-      );
-    }
-  };
+const withSession = function(WrappedFunction) {
+  return (props) => (
+    <SessionContext.Consumer>
+      {context => <WrappedFunction session={context} {...props} />}
+    </SessionContext.Consumer>
+  );
 };
 
-export { SessionContext, withSession };
+export { SessionProvider, withSession };
