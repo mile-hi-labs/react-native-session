@@ -46,7 +46,6 @@ class SessionProvider extends Component {
     try {
       LocalStorage.set('userId', data.id);
       LocalStorage.set('token', data.token);
-      logger('session started: ', model, data);
       await this.loadUser(model, data.id, data.token, {});
     } catch(e) {
       throw e;
