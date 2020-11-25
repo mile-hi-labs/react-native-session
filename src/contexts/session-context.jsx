@@ -83,11 +83,15 @@ class SessionProvider extends Component {
 };
 
 const withSession = function(WrappedFunction) {
-  return (props) => (
-    <SessionContext.Consumer>
-      {context => <WrappedFunction session={context} {...props} />}
-    </SessionContext.Consumer>
-  );
+  return class extends Component {
+    render() {
+      return (
+        <SessionContext.Consumer>
+          {context => <WrappedFunction session={context} {...this.props} />}
+        </SessionContext.Consumer>
+      );
+    }
+  }
 };
 
 export { SessionProvider, withSession };
