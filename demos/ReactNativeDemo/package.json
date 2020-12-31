@@ -13,7 +13,8 @@
   },
   "dependencies": {
     "@mile-hi-labs/react-data": "latest",
-    "@mile-hi-labs/react-native-session": "github:Mile-Hi-Labs/react-native-session",
+    "@mile-hi-labs/react-native-session": "github:mile-hi-labs/react-native-session",
+    "@react-native-async-storage/async-storage": "^1.13.2",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-navigation/bottom-tabs": "^5.11.1",
     "@react-navigation/native": "^5.8.9",

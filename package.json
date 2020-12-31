@@ -48,7 +48,6 @@
     "webpack-cli": "^3.2.1"
   },
   "dependencies": {
-    "@react-native-async-storage/async-storage": "^1.13.2",
     "pluralize": "^8.0.0"
   }
 }

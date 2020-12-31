@@ -16,6 +16,7 @@ function generalConfig(config, env) {
   config.externals = {
     'react': 'commonjs react',
     'react-native': 'react-native',
+    '@react-native-async-storage/async-storage': '@react-native-async-storage/async-storage'
   };
   config.output = {
     path: Path.join(__dirname, 'lib'),

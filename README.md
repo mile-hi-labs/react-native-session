@@ -1,11 +1,10 @@
 ## Overview
-React Native Session is a session management library for React native applications. The library is a lightweight abstraction built on local-storage and is designed to work alongside [React Data](https://github.com/Mile-Hi-Labs/react-data).
+React Native Session is a session management library for React native applications. The library is built on async-storage and is designed to work with [React Data](https://github.com/mile-hi-labs/react-data).
 
-## Why RNS?
-State management libraries are often complex, opinionated, and require quite a bit of configuration. RNS makes it fast and easy to manage your session and access it from anywhere.
 
 ## How it Works
-RNS uses the [Context Hook](https://reactjs.org/docs/context.html) api to provide a global session where you can authenticate and persist the current user across multiple browser windows or sessions. Once authenticated, React-Session will also automatically add a JWT token to all API requests sent using React Data.
+React Native Session uses the [Context Hook](https://reactjs.org/docs/context.html) api to provide a global session where you can authenticate and persist the current user through the current session. Once authenticated, React Native Session will automatically add a JWT token to all API requests and can be used in tandem with React Navigation to change the home scene.
+
 
 ## Quick Start
 ```

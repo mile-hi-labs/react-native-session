@@ -978,8 +978,8 @@
     "axios" "^0.19.2"
     "pluralize" "^8.0.0"
 
-"@mile-hi-labs/react-native-session@github:Mile-Hi-Labs/react-native-session":
-  "resolved" "git+ssh://git@github.com/Mile-Hi-Labs/react-native-session.git#2f4458034b7b0e7dff8546fe46f20391dec46ec1"
+"@mile-hi-labs/react-native-session@github:mile-hi-labs/react-native-session":
+  "resolved" "git+ssh://git@github.com/mile-hi-labs/react-native-session.git#0af322f101cba035167e6e1fcbbbad885866d2fa"
   "version" "2.0.0"
   dependencies:
     "@react-native-async-storage/async-storage" "^1.13.2"

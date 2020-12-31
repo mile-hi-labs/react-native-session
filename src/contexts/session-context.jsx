@@ -22,7 +22,7 @@ class SessionProvider extends Component {
 
   // Hooks
   componentDidMount() {
-    logger('React Native Session initiated...');
+    logger('RN Session ready...');
     this.init();
   }
 
