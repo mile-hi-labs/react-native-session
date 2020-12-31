@@ -1,10 +1,10 @@
 {
-  "name": "@mile-hi-labs/react-session",
-  "version": "1.0.10",
-  "description": "A session management library for React applications.",
-  "homepage": "https://github.com/mile-hi-labs/react-session#readme",
+  "name": "@mile-hi-labs/react-native-session",
+  "version": "2.0.0",
+  "description": "A session management library for React Native applications.",
+  "homepage": "https://github.com/mile-hi-labs/react-native-session#readme",
   "license": "MIT",
-  "main": "./lib/index.js",
+  "main": "./lib/react-native-session.js",
   "author": {
     "name": "Eric Hubbell",
     "email": "eric@erichubbell.com",
@@ -12,22 +12,28 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com//mile-hi-labs/react-session"
+    "url": "https://github.com//mile-hi-labs/react-native-session"
   },
   "bugs": {
-    "url": "https://github.com//mile-hi-labs/react-session/issues"
+    "url": "https://github.com//mile-hi-labs/react-native-session/issues"
   },
   "keywords": [
     "react",
-    "context",
-    "session",
-    "authentication",
-    "react-data"
+    "react native",
+    "react session",
+    "react native session",
+    "react auth",
+    "react native auth",
+    "react authentication",
+    "react native authentication",
+    "react native component"
   ],
   "scripts": {
-    "build": "webpack --env.development",
-    "build:prod": "webpack --env.production",
-    "test": "test"
+    "clean": "rimraf ./lib",
+    "build": "webpack --env development",
+    "build:prod": "webpack --env production",
+    "deploy": "npm run clean && npm run build && npm run build:prod && npm publish",
+    "deploy:test": "npm run clean && npm run build && npm run build:prod && npm publish --dry-run"
   },
   "devDependencies": {
     "babel-core": "^6.21.0",
@@ -37,11 +43,12 @@
     "babel-preset-stage-0": "^6.24.1",
     "compression-webpack-plugin": "^5.0.0",
     "react": "^16.13.1",
+    "rimraf": "^2.7.1",
     "webpack": "^4.44.2",
     "webpack-cli": "^3.2.1"
   },
   "dependencies": {
-    "local-storage": "^2.0.0",
+    "@react-native-async-storage/async-storage": "^1.13.2",
     "pluralize": "^8.0.0"
   }
 }

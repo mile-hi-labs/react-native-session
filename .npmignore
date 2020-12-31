@@ -1,4 +1,6 @@
 src/*
 demos/*
+releases/*
 .babelrc
+.gitattributes
 webpack.config.js
