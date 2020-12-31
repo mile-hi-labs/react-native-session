@@ -1,28 +1,28 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
-import { RefreshControl, SafeAreaView, ScrollView, View, Text, Button, StatusBar } from 'react-native';
-import { useFocusEffect } from '@react-navigation/native';
+import { View, Text, Button, StatusBar } from 'react-native';
+import { withSession } from '@mile-hi-labs/react-native-session';
 import { withStore } from '@mile-hi-labs/react-data';
+import { useFocusEffect } from '@react-navigation/native';
+import { BasicScene } from 'components/basics/scenes';
 
-const BooksScene = (props) => {
-	const { navigation, route, store } = props;
+const ProfileScene = (props) => {
+	const { navigation, route, session, store } = props;
   const [ books, setBooks ] = useState([]);
   const [ loading, setLoading ] = useState(false);
   const [ refreshing, setRefreshing ] = useState(false);
 
 
   // Hooks
-  useFocusEffect(
-    useCallback(() => {
-      fetchData();
-    }, [])
-  );
+  useEffect(() => {
+    // fetchData();
+  }, [])
 
 
   // Methods
   const fetchData = async () => {
     try {
       setLoading(true);
-      let model = await store.query('book', {});
+      let model = await store.findRecord('user', session.user.id);
       setBooks(model);
     } catch (e) {
       console.log('error: ', e);
@@ -31,40 +31,22 @@ const BooksScene = (props) => {
     }
   }
 
-  const refreshData = async () => {
-    setRefreshing(true);
-    await fetchData();
-    setRefreshing(false);
+  const logout = async () => {
+    await session.logout();
+    navigation.reset({ index: 0, routes: [{ name: 'Welcome' }] });
   }
 
 
   // Render
   return (
-    <SafeAreaView style={{flex: 1, width: '100%'}}>
-      <ScrollView
-        contentInsetAdjustmentBehavior='automatic'
-        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={refreshData} />}>
-        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', width: '100%', minHeight: '100%'}}>
-          {loading ? <Text>Loading...</Text> : (
-            <Fragment>
-              {books.length > 0 ? (
-                <Fragment>
-                  {books.map(book => (
-                    <View key={book.id}>
-                      <Text>{book.title}</Text>
-                      <Text>{book.printType}</Text>
-                    </View>
-                  ))}
-                </Fragment>
-              ) : (
-                <Text>Sorry, we don't have any books...</Text>
-              )}
-            </Fragment>
-          )}
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <BasicScene>
+      <View style={{flex: 1, justifyContent: 'center', width: '100%', height: '100%', padding: 15}}>
+        <Text style={{fontSize: 24, marginBottom: 10}}>{user.name}</Text>
+        <Text style={{fontSize: 16, marginBottom: 16}}>This is your profile.</Text>
+        <Button onPress={() => logout()}>Logout</Button>
+      </View>
+    </BasicScene>
   );
 };
 
-export default withStore(BooksScene);
+export default withSession(withStore(ProfileScene));

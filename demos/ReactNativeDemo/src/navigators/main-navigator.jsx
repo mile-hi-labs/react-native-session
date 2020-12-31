@@ -11,7 +11,7 @@ import ProfileScene from 'scenes/main/profile';
 const Tab = createBottomTabNavigator();
 
 const MainNav = (props) => {
-  const { navigation, route } = props;
+  const { navigation, route, session, store } = props;
 
   // Render
   return (

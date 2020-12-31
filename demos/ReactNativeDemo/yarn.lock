@@ -979,8 +979,7 @@
     "pluralize" "^8.0.0"
 
 "@mile-hi-labs/react-native-session@github:Mile-Hi-Labs/react-native-session":
-  "integrity" "sha512-n2Gr3zwVbd674yP6YlDn4FQasoT9lLPBLuLSOChit5Rgdz7Hu9iQ/WyaOz4swSifNljD2RELw1i6lwdp0PQlWw=="
-  "resolved" "git+ssh://git@github.com/Mile-Hi-Labs/react-native-session.git"
+  "resolved" "git+ssh://git@github.com/Mile-Hi-Labs/react-native-session.git#2f4458034b7b0e7dff8546fe46f20391dec46ec1"
   "version" "2.0.0"
   dependencies:
     "@react-native-async-storage/async-storage" "^1.13.2"

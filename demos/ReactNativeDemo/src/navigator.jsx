@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { withSession } from '@mile-hi-labs/react-native-session';
@@ -16,6 +16,7 @@ const Stack = createStackNavigator();
 
 const Navigator = (props) => {
   const { session, store } = props;
+
 
   // Render
   return (

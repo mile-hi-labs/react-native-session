@@ -1,7 +1,7 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import { RefreshControl, SafeAreaView, ScrollView, View, Text, Button, StatusBar } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
-import { withStore } from '@mile-hi-labs/react-data';
+import { BasicScene } from 'components/basics/scenes';
 
 const BooksScene = (props) => {
 	const { navigation, route, store } = props;
@@ -11,11 +11,9 @@ const BooksScene = (props) => {
 
 
   // Hooks
-  useFocusEffect(
-    useCallback(() => {
-      fetchData();
-    }, [])
-  );
+  useEffect(() => {
+    // fetchData();
+  }, [])
 
 
   // Methods
@@ -41,24 +39,16 @@ const BooksScene = (props) => {
   // Render
   return (
     <SafeAreaView style={{flex: 1, width: '100%'}}>
-      <ScrollView
-        contentInsetAdjustmentBehavior='automatic'
-        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={refreshData} />}>
+      <ScrollView contentInsetAdjustmentBehavior='automatic'>
         <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', width: '100%', minHeight: '100%'}}>
           {loading ? <Text>Loading...</Text> : (
             <Fragment>
-              {books.length > 0 ? (
-                <Fragment>
-                  {books.map(book => (
-                    <View key={book.id}>
-                      <Text>{book.title}</Text>
-                      <Text>{book.printType}</Text>
-                    </View>
-                  ))}
-                </Fragment>
-              ) : (
-                <Text>Sorry, we don't have any books...</Text>
-              )}
+              {books.length > 0 && books.map(book => (
+                <View key={book.id}>
+                  <Text>{book.title}</Text>
+                  <Text>{book.printType}</Text>
+                </View>
+              ))}
             </Fragment>
           )}
         </View>
@@ -67,4 +57,4 @@ const BooksScene = (props) => {
   );
 };
 
-export default withStore(BooksScene);
+export default BooksScene;
