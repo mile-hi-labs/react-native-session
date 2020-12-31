@@ -7,7 +7,7 @@ import { BasicScene } from 'components/basics/scenes';
 
 const ProfileScene = (props) => {
 	const { navigation, route, session, store } = props;
-  const [ books, setBooks ] = useState([]);
+  const [ user, setUser ] = useState([]);
   const [ loading, setLoading ] = useState(false);
   const [ refreshing, setRefreshing ] = useState(false);
 
@@ -23,7 +23,7 @@ const ProfileScene = (props) => {
     try {
       setLoading(true);
       let model = await store.findRecord('user', session.user.id);
-      setBooks(model);
+      setUser(model);
     } catch (e) {
       console.log('error: ', e);
     } finally {
