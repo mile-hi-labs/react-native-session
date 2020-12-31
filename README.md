@@ -10,7 +10,7 @@ React Native Session uses the [Context Hook](https://reactjs.org/docs/context.ht
 ```
 npm install @mile-hi-labs/react-native-session
 npm install @react-native-community/async-storage
-npx pod-install
+npx pod-install or cd ios && pod install
 ```
 
 Next, add the following to your `app.jsx` file or near the top of your application.
@@ -20,6 +20,7 @@ Next, add the following to your `app.jsx` file or near the top of your applicati
 
 import React from 'react';
 import Navigator from 'navigator';
+import { StoreProvider, StoreContext } from '@mile-hi-labs/react-data';
 import { SessionProvider } from '@mile-hi-labs/react-native-session';
 
 

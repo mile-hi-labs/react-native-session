@@ -979,10 +979,9 @@
     "pluralize" "^8.0.0"
 
 "@mile-hi-labs/react-native-session@github:mile-hi-labs/react-native-session":
-  "resolved" "git+ssh://git@github.com/mile-hi-labs/react-native-session.git#0af322f101cba035167e6e1fcbbbad885866d2fa"
+  "resolved" "git+ssh://git@github.com/mile-hi-labs/react-native-session.git#c93cbdf66d982307aea46aebabb9b20f289d5ca1"
   "version" "2.0.0"
   dependencies:
-    "@react-native-async-storage/async-storage" "^1.13.2"
     "pluralize" "^8.0.0"
 
 "@react-native-async-storage/async-storage@^1.13.2":

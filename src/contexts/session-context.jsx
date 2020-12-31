@@ -49,7 +49,7 @@ class SessionProvider extends Component {
   }
 
   async authenticate(model, data) {
-    await AsyncStorage.setItem('userId', data.id);
+    await AsyncStorage.setItem('userId', data.id.toString());
     await AsyncStorage.setItem('token', data.token);
     return await this.loadUser(model, data.id, data.token, {});
   }
