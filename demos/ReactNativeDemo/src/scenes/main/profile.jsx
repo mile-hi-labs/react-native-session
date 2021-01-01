@@ -1,5 +1,5 @@
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
-import { View, Text } from 'react-native';
+import { ScrollView, View, Text } from 'react-native';
 import { withSession } from '@mile-hi-labs/react-native-session';
 import { withStore } from '@mile-hi-labs/react-data';
 import { useFocusEffect } from '@react-navigation/native';
@@ -43,11 +43,13 @@ const ProfileScene = (props) => {
   // Render
   return (
     <BasicScene>
-      <View style={{flex: 1, justifyContent: 'center', width: '100%', height: '100%', padding: 15}}>
-        <Text style={{fontSize: 24, marginBottom: 10}}>Hi, {user.name}</Text>
-        <Text style={{fontSize: 16, marginBottom: 16}}>This is your profile.</Text>
-        <Button onPress={() => logout()}>Logout</Button>
-      </View>
+      <ScrollView contentInsetAdjustmentBehavior='automatic'>
+        <View style={{flex: 1, justifyContent: 'center', width: '100%', height: '100%', padding: 15}}>
+          <Text style={{fontSize: 24, marginBottom: 10}}>Hi, {user.name}</Text>
+          <Text style={{fontSize: 16, marginBottom: 16}}>This is your profile.</Text>
+          <Button onPress={() => logout()}>Logout</Button>
+        </View>
+      </ScrollView>
     </BasicScene>
   );
 };

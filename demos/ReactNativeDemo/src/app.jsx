@@ -17,7 +17,7 @@ const App = (props) => {
       <StoreProvider adapters={Adapters} serializers={Serializers} models={Models} apiDomain={apiDomain}>
       	<StoreContext.Consumer>
       		{store => (
-    				<SessionProvider model='user' store={store}>
+    				<SessionProvider modelName='user' store={store}>
     					<Navigator />
   					</SessionProvider>
     			)}
