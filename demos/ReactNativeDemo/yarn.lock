@@ -978,11 +978,10 @@
     "axios" "^0.19.2"
     "pluralize" "^8.0.0"
 
-"@mile-hi-labs/react-native-session@github:mile-hi-labs/react-native-session":
-  "resolved" "git+ssh://git@github.com/mile-hi-labs/react-native-session.git#3bdecd9198a319aaaf61e399e3996c0bdc923ddf"
+"@mile-hi-labs/react-native-session@latest":
+  "integrity" "sha512-CPNOtRcnjWDvQfpfAS52aUpZAiRLGP4Rg5rTV8itjK9BZ61b/H2DRuThCYPIs+8D5lPko3tkkvUWoBH1gwIDAw=="
+  "resolved" "https://registry.npmjs.org/@mile-hi-labs/react-native-session/-/react-native-session-2.0.0.tgz"
   "version" "2.0.0"
-  dependencies:
-    "pluralize" "^8.0.0"
 
 "@react-native-async-storage/async-storage@^1.13.2":
   "integrity" "sha512-isTDvUApRJPVWFxV15yrQSOGqarX7cIedq/y4N5yWSnotf68D9qvDEv1I7rCXhkBDi0u4OJt6GA9dksUT0D3wg=="
