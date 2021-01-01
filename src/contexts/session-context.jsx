@@ -31,7 +31,7 @@ class SessionProvider extends Component {
   async init() {
     let userId = await AsyncStorage.getItem('userId');
     let token = await AsyncStorage.getItem('token');
-    userId && token ? this.loadUser(this.state.model, userId, token, this.props.params) : this.setState({ loaded: true });
+    userId && token ? this.loadUser(this.state.modelName, userId, token, this.props.params) : this.setState({ loaded: true });
   }
 
   async loadUser(modelName, modelId, token, params = {}) {
