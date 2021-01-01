@@ -46,8 +46,5 @@
     "rimraf": "^2.7.1",
     "webpack": "^4.44.2",
     "webpack-cli": "^3.2.1"
-  },
-  "dependencies": {
-    "pluralize": "^8.0.0"
   }
 }

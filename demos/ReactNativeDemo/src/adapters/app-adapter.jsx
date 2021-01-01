@@ -1,5 +1,4 @@
 import { BaseAdapter } from '@mile-hi-labs/react-data';
-import Pluralize from 'pluralize';
 
 class AppAdapter extends BaseAdapter {
 	static userId = null;
