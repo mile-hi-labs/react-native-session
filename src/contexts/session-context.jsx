@@ -30,7 +30,10 @@ class SessionProvider extends Component {
   async init() {
     let userId = await AsyncStorage.getItem('userId');
     let token = await AsyncStorage.getItem('token');
-    userId && token ? this.loadUser(this.props.modelName, userId, token, this.props.params) : this.setState({ loaded: true });
+    if (userId && token) {
+      await this.loadUser(this.props.modelName, userId, token, this.props.params)
+    }
+    this.setState({ loaded: true });
   }
 
   async loadUser(modelName, userId, token, params) {
@@ -41,8 +44,6 @@ class SessionProvider extends Component {
       logger('Session authenticated: ', this.state);
     } catch(e) {
       await this.logout();
-    } finally {
-      this.setState({ loaded: true });
     }
   }
 
@@ -88,4 +89,4 @@ const withSession = function(WrappedFunction) {
   }
 };
 
-export { SessionProvider, withSession };
+export { SessionContext, SessionProvider, withSession };

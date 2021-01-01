@@ -19,6 +19,7 @@ const Navigator = (props) => {
 
 
   // Render
+  if (!session.loaded) { return null }
   return (
   	<NavigationContainer>
 	    <Stack.Navigator mode='modal' initialRouteName={session.authenticated() ? 'Main' : 'Welcome'}>

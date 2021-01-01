@@ -979,7 +979,7 @@
     "pluralize" "^8.0.0"
 
 "@mile-hi-labs/react-native-session@github:mile-hi-labs/react-native-session":
-  "resolved" "git+ssh://git@github.com/mile-hi-labs/react-native-session.git#492fd287e69d666e111d0c9988768a5a4b386d3f"
+  "resolved" "git+ssh://git@github.com/mile-hi-labs/react-native-session.git#3bdecd9198a319aaaf61e399e3996c0bdc923ddf"
   "version" "2.0.0"
   dependencies:
     "pluralize" "^8.0.0"

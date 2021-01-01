@@ -15,38 +15,7 @@ const MainNav = (props) => {
 
   // Render
   return (
-    <Tab.Navigator initialRouteName='MainBooks'>
-      <Tab.Screen
-        name='MainBooks'
-        component={BooksScene}
-        options={{
-          title: 'Books',
-        }}
-      />
-
-      <Tab.Screen
-        name='MainAuthors'
-        component={AuthorsScene}
-        options={{
-          title: 'Authors',
-        }}
-      />
-
-      <Tab.Screen
-        name='MainCategories'
-        component={CategoriesScene}
-        options={{
-          title: 'Categories',
-        }}
-      />
-
-      <Tab.Screen
-        name='MainPublishers'
-        component={PublishersScene}
-        options={{
-          title: 'Publishers',
-        }}
-      />
+    <Tab.Navigator initialRouteName='MainProfile'>
 
       <Tab.Screen
         name='MainProfile'

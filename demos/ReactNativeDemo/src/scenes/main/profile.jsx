@@ -10,7 +10,7 @@ const ProfileScene = (props) => {
 	const { navigation, route, session, store } = props;
   const [ user, setUser ] = useState([]);
   const [ loading, setLoading ] = useState(false);
-  const [ refreshing, setRefreshing ] = useState(false);
+  const [ taskRunning, setTaskRunning ] = useState(false);
 
 
   // Hooks
@@ -35,8 +35,10 @@ const ProfileScene = (props) => {
   }
 
   const logout = async () => {
+    setTaskRunning(true);
     await session.logout();
     navigation.reset({ index: 0, routes: [{ name: 'Welcome' }] });
+    setTaskRunning(false);
   }
 
 
@@ -46,8 +48,9 @@ const ProfileScene = (props) => {
       <ScrollView contentInsetAdjustmentBehavior='automatic'>
         <View style={{flex: 1, justifyContent: 'center', width: '100%', height: '100%', padding: 15}}>
           <Text style={{fontSize: 24, marginBottom: 10}}>Hi, {user.name}</Text>
-          <Text style={{fontSize: 16, marginBottom: 16}}>This is your profile.</Text>
-          <Button onPress={() => logout()}>Logout</Button>
+          <Text style={{fontSize: 16, marginBottom: 16}}>You are now logged in! This session will persist across app closures and coming/ going from the app.</Text>
+          <Text style={{fontSize: 16, marginBottom: 16}}>Go ahead and test it out. When you're done, simply click logout.</Text>
+          <Button taskRunning={taskRunning} onPress={() => logout()}>Logout</Button>
         </View>
       </ScrollView>
     </BasicScene>
