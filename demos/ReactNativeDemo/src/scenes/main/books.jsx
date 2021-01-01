@@ -15,7 +15,7 @@ const BooksScene = (props) => {
   // Hooks
   useFocusEffect(
     useCallback(() => {
-    books.length == 0 && fetchData();
+      fetchData();
     }, [])
   );
 

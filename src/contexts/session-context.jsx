@@ -39,8 +39,8 @@ class SessionProvider extends Component {
       if (!this.props.store) {  return };
       this.props.store.adapterFor('app').token = token;
       let user = await this.props.store.queryRecord(modelName, modelId, params);
-      logger('Session authenticated: ', this.state);
       await this.setState({ token: token, user: user });
+      logger('Session authenticated: ', this.state);
     } catch(e) {
       await this.logout();
     } finally {

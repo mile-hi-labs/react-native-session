@@ -3,6 +3,7 @@ import { ScrollView, View, Text, Button, StatusBar } from 'react-native';
 import { withSession } from '@mile-hi-labs/react-native-session';
 import { withStore } from '@mile-hi-labs/react-data';
 import { useFocusEffect } from '@react-navigation/native';
+import { BasicScene } from 'components/basics/scenes';
 
 const AuthorsScene = (props) => {
 	const { navigation, route, session, store } = props;
@@ -12,9 +13,11 @@ const AuthorsScene = (props) => {
 
 
   // Hooks
-  useEffect(() => {
+  useFocusEffect(
+    useCallback(() => {
     fetchData();
-  }, [])
+    }, [])
+  )
 
 
   // Methods
@@ -39,7 +42,7 @@ const AuthorsScene = (props) => {
 
   // Render
   return (
-    <SafeAreaView style={{flex: 1, width: '100%'}}>
+    <BasicScene>
       <ScrollView contentInsetAdjustmentBehavior='automatic'>
         <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', width: '100%', minHeight: '100%'}}>
           {loading ? <Text>Loading...</Text> : (
@@ -53,7 +56,7 @@ const AuthorsScene = (props) => {
           )}
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </BasicScene>
   );
 };
 

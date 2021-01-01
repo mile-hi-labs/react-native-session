@@ -971,15 +971,15 @@
     "chalk" "^3.0.0"
 
 "@mile-hi-labs/react-data@latest":
-  "integrity" "sha512-f6hI/A3rKaHrlzTPxT0rCTUJYIrSs7fJY7uJpv6j5Hx1mwBw9jyCTzBB/yRb6u/wpOScJSSK8IJvRfgNYv6BNQ=="
-  "resolved" "https://registry.npmjs.org/@mile-hi-labs/react-data/-/react-data-2.0.0.tgz"
-  "version" "2.0.0"
+  "integrity" "sha512-7eogcBPX8A6z0hR3zO33fhVtkLv3uXUdZLYTNRXr6Tqo29LJU530AssfMU2BMzjnW+Xgb2C21p8NjJgkzqM1sQ=="
+  "resolved" "https://registry.npmjs.org/@mile-hi-labs/react-data/-/react-data-2.0.10.tgz"
+  "version" "2.0.10"
   dependencies:
     "axios" "^0.19.2"
     "pluralize" "^8.0.0"
 
 "@mile-hi-labs/react-native-session@github:mile-hi-labs/react-native-session":
-  "resolved" "git+ssh://git@github.com/mile-hi-labs/react-native-session.git#c93cbdf66d982307aea46aebabb9b20f289d5ca1"
+  "resolved" "git+ssh://git@github.com/mile-hi-labs/react-native-session.git#492fd287e69d666e111d0c9988768a5a4b386d3f"
   "version" "2.0.0"
   dependencies:
     "pluralize" "^8.0.0"
