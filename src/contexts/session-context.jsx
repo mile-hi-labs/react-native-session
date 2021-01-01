@@ -10,8 +10,6 @@ class SessionProvider extends Component {
     this.state = {
       user: {},
       token: null,
-      params: this.props.params || {},
-      modelName: this.props.modelName || 'user',
       loadUser: this.loadUser.bind(this),
       authenticated: this.authenticated.bind(this),
       authenticate: this.authenticate.bind(this),
@@ -32,7 +30,7 @@ class SessionProvider extends Component {
   async init() {
     let userId = await AsyncStorage.getItem('userId');
     let token = await AsyncStorage.getItem('token');
-    userId && token ? this.loadUser(this.state.modelName, userId, token, this.state.params) : this.setState({ loaded: true });
+    userId && token ? this.loadUser(this.props.modelName, userId, token, this.props.params) : this.setState({ loaded: true });
   }
 
   async loadUser(modelName, userId, token, params) {
