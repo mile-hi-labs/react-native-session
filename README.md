@@ -1,4 +1,5 @@
 ## Overview
+React Native Session is a session management library for React native applications. The library is a close replication [React Session](https://github.com/mile-hi-labs/react-session) built on async-storage to manage React Native sessions.
 
 
 ## How it Works
