@@ -8,7 +8,7 @@ import * as Serializers from 'serializers';
 import Navigator from 'navigator';
 
 const App = (props) => {
-	const apiDomain = 'http://127.0.0.1:8080';
+	const apiDomain = 'http://library-api.milehilabs.dev';
 
 
   // Render
