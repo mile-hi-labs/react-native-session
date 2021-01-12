@@ -1,6 +1,6 @@
 {
   "name": "@mile-hi-labs/react-native-session",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "A session management library for React Native applications.",
   "homepage": "https://github.com/mile-hi-labs/react-native-session#readme",
   "license": "MIT",

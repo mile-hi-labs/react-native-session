@@ -147,14 +147,12 @@ This project comes with a built-in React Native demo.
 
 
 ## Development
-This projects uses Webpack to build the project. Please see `package.json` for available scripts.
-- Clone the repository
-- Run `npm install`
-- Run `npm link` from this library
-- Open up a project where you'd like to use this library
-- Run `npm link react-native-session` from the project
-- You can now develop both projects simultaneously
-- Run `npm run build` to push code from this library to your project.
+React Native's metro bundler doesn't accept the steps below. Please contact the project author for an alternative path.
+- Clone this repository
+- Run `npm install` from this library
+- Run `npm run build` from this library
+- Open up the consuming project / demo project and run `npm install path/to/this/project`
+- Repeat the steps above to consume the latest code
 
 
 ## Links

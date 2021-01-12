@@ -8,6 +8,7 @@ class SessionProvider extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      modelName: this.props.modelName || 'user',
       user: {},
       token: null,
       loadUser: this.loadUser.bind(this),
@@ -21,42 +22,40 @@ class SessionProvider extends Component {
 
   // Hooks
   componentDidMount() {
-    logger('RN Session ready...');
     this.init();
   }
 
 
   // Methods
   async init() {
+    let store = this.props.store;
     let userId = await AsyncStorage.getItem('userId');
     let token = await AsyncStorage.getItem('token');
-    if (userId && token) {
-      await this.loadUser(this.props.modelName, userId, token, this.props.params)
-    }
-    this.setState({ loaded: true });
+    userId && token ? await this.loadUser(store, this.state.modelName, userId, token, this.props.params) : this.setState({ loaded: true });
   }
 
-  async loadUser(modelName, userId, token, params) {
+  async loadUser(store, modelName, modelId, token, params) {
     try {
-      this.props.store.adapterFor('app').token = token;
-      let user = await this.props.store.queryRecord(modelName, userId, params);
-      await this.setState({ token: token, user: user });
-      logger('Session authenticated: ', this.state);
+      store.adapterFor('').set('token', token);
+      let user = await this.props.store.queryRecord(modelName, modelId, params);
+      await this.setState({ token: token, user: user }, () => logger('React Native Session: ', this.state));
     } catch(e) {
       await this.logout();
+    } finally {
+      this.setState({ loaded: true });
     }
   }
 
   async authenticate(modelName, data) {
+    let store = this.props.store;
     await AsyncStorage.setItem('userId', data.id.toString());
     await AsyncStorage.setItem('token', data.token);
-    return await this.loadUser(modelName, data.id, data.token, {});
+    return await this.loadUser(store, modelName, data.id, data.token, {});
   }
 
   async logout() {
     await AsyncStorage.multiRemove(['userId', 'token']);
-    await this.setState({ token: '', user: {} });
-    logger('Session terminated: ', this.state);
+    await this.setState({ token: '', user: {} }, () => () => logger('React Native Session: ', this.state));
   }
 
   authenticated() {
@@ -71,7 +70,7 @@ class SessionProvider extends Component {
 
     return (
       <SessionContext.Provider value={this.state}>
-        {children}
+        {loaded ? children : null}
       </SessionContext.Provider>
     )
   }

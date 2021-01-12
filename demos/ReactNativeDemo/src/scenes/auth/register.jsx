@@ -8,7 +8,7 @@ import { Form, FormGroup, FormLabel } from 'components/basics/forms';
 import { TextInputWrapper } from 'components/basics/inputs';
 import { BasicScene } from 'components/basics/scenes';
 
-const REGISTER_URL = 'http://localhost:8080/auth/register';
+const REGISTER_URL = 'http://library-api.milehilabs.dev/auth/register';
 
 const RegisterScene = (props) => {
   const { navigation, route, session, store } = props;

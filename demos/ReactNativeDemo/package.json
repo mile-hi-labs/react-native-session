@@ -12,8 +12,8 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@mile-hi-labs/react-data": "latest",
-    "@mile-hi-labs/react-native-session": "latest",
+    "@mile-hi-labs/react-data": "^2.1.0",
+    "@mile-hi-labs/react-native-session": "^2.0.2",
     "@react-native-async-storage/async-storage": "^1.13.2",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-navigation/bottom-tabs": "^5.11.1",
