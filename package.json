@@ -1,6 +1,6 @@
 {
   "name": "@mile-hi-labs/react-native-session",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "A session management library for React Native applications.",
   "homepage": "https://github.com/mile-hi-labs/react-native-session#readme",
   "license": "MIT",
@@ -32,8 +32,12 @@
     "clean": "rimraf ./lib",
     "build": "webpack --env development",
     "build:prod": "webpack --env production",
-    "deploy": "npm run clean && npm run build && npm run build:prod && npm publish",
-    "deploy:test": "npm run clean && npm run build && npm run build:prod && npm publish --dry-run"
+    "deploy": "npm run clean && npm run build && npm run build:prod && npm publish && npm run git -m",
+    "deploy:test": "npm run clean && npm run build && npm run build:prod && npm publish --dry-run",
+    "format": "prettier --write src/**/*.jsx",
+    "git": "git add . && git commit -m",
+    "postgit": "git push --all",
+    "lint": "eslint src/**/*.js[x]"
   },
   "devDependencies": {
     "babel-core": "^6.21.0",
@@ -42,6 +46,9 @@
     "babel-preset-react": "^6.16.0",
     "babel-preset-stage-0": "^6.24.1",
     "compression-webpack-plugin": "^5.0.0",
+    "eslint": "^7.17.0",
+    "eslint-config-react-app": "^6.0.0",
+    "prettier": "^2.2.1",
     "react": "^16.13.1",
     "rimraf": "^2.7.1",
     "webpack": "^4.44.2",

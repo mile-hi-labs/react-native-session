@@ -19,27 +19,29 @@ class SessionProvider extends Component {
     };
   }
 
-
   // Hooks
   componentDidMount() {
     this.init();
   }
-
 
   // Methods
   async init() {
     let store = this.props.store;
     let userId = await AsyncStorage.getItem('userId');
     let token = await AsyncStorage.getItem('token');
-    userId && token ? await this.loadUser(store, this.state.modelName, userId, token, this.props.params) : this.setState({ loaded: true });
+    userId && token
+      ? await this.loadUser(store, this.state.modelName, userId, token, this.props.params)
+      : this.setState({ loaded: true });
   }
 
   async loadUser(store, modelName, modelId, token, params) {
     try {
       store.adapterFor('').set('token', token);
-      let user = await this.props.store.queryRecord(modelName, modelId, params);
-      await this.setState({ token: token, user: user }, () => logger('React Native Session: ', this.state));
-    } catch(e) {
+      let user = await store.findRecord(modelName, modelId, params);
+      await this.setState({ token: token, user: user }, () =>
+        logger('React Native Session: ', this.state)
+      );
+    } catch (e) {
       await this.logout();
     } finally {
       this.setState({ loaded: true });
@@ -55,13 +57,14 @@ class SessionProvider extends Component {
 
   async logout() {
     await AsyncStorage.multiRemove(['userId', 'token']);
-    await this.setState({ token: '', user: {} }, () => () => logger('React Native Session: ', this.state));
+    await this.setState({ token: '', user: {} }, () => () =>
+      logger('React Native Session: ', this.state)
+    );
   }
 
   authenticated() {
     return this.state.user.id ? true : false;
   }
-
 
   // Render
   render() {
@@ -72,11 +75,11 @@ class SessionProvider extends Component {
       <SessionContext.Provider value={this.state}>
         {loaded ? children : null}
       </SessionContext.Provider>
-    )
+    );
   }
-};
+}
 
-const withSession = function(WrappedFunction) {
+const withSession = function (WrappedFunction) {
   return class extends Component {
     render() {
       return (
@@ -85,7 +88,7 @@ const withSession = function(WrappedFunction) {
         </SessionContext.Consumer>
       );
     }
-  }
+  };
 };
 
 export { SessionContext, SessionProvider, withSession };
