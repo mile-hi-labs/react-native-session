@@ -1,5 +1,3 @@
 import App from 'serializers/app-serializer';
 
-export {
-	App
-}
+export {App};

@@ -1,14 +1,10 @@
 import React from 'react';
-import { SafeAreaView, ScrollView, View, Keyboard, TouchableWithoutFeedback } from 'react-native';
+import {SafeAreaView, ScrollView, View, Keyboard, TouchableWithoutFeedback} from 'react-native';
 
-const DismissKeyboard = (props) => {
-	const { children } = props;
+const DismissKeyboard = props => {
+  const {children} = props;
 
-	return (
-		<TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-			{children && children}
-		</TouchableWithoutFeedback>
-	)
-}
+  return <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>{children && children}</TouchableWithoutFeedback>;
+};
 
 export default DismissKeyboard;

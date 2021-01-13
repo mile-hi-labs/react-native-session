@@ -9,7 +9,8 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "test": "jest",
-    "lint": "eslint ."
+    "format": "prettier --write src/**/*.jsx",
+    "lint": "eslint src/**/*.js[x]"
   },
   "dependencies": {
     "@mile-hi-labs/react-data": "^2.1.0",
@@ -36,6 +37,7 @@
     "eslint": "^6.5.1",
     "jest": "^25.1.0",
     "metro-react-native-babel-preset": "^0.59.0",
+    "prettier": "^2.2.1",
     "react-test-renderer": "16.13.1"
   },
   "jest": {
