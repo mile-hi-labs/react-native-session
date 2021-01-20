@@ -67,7 +67,6 @@ class SessionProvider extends Component {
 
   async authenticate(modelName, data) {
     let store = this.props.store;
-    let modelName = this.state.modelName;
     await AsyncStorage.setItem('userId', data.id.toString());
     await AsyncStorage.setItem('token', data.token);
     let params = this.state.params;
