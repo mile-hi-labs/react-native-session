@@ -8,10 +8,11 @@ class SessionProvider extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      modelName: this.props.modelName || 'user',
       user: {},
       token: null,
-      loadUser: this.loadUser.bind(this),
+      params: this.props.params || {},
+      modelName: this.props.modelName || 'user',
+      loadSession: this.loadSession.bind(this),
       authenticated: this.authenticated.bind(this),
       authenticate: this.authenticate.bind(this),
       logout: this.logout.bind(this),
@@ -27,39 +28,55 @@ class SessionProvider extends Component {
   // Methods
   async init() {
     let store = this.props.store;
+    let modelName = this.state.modelName;
     let userId = await AsyncStorage.getItem('userId');
     let token = await AsyncStorage.getItem('token');
-    userId && token
-      ? await this.loadUser(store, this.state.modelName, userId, token, this.props.params)
-      : this.setState({ loaded: true });
+    let params = this.state.params;
+    if (userId && token) {
+      await this.loadSession(store, modelName, userId, token, params)
+    } else {
+      this.setState({ loaded: true });
+    }
   }
 
   async loadUser(store, modelName, modelId, token, params) {
     try {
       store.adapterFor('').set('token', token);
-      let user = await store.findRecord(modelName, modelId, params);
-      await this.setState({ token: token, user: user }, () =>
-        logger('React Native Session: ', this.state)
-      );
+      let model = await store.queryRecord(modelName, modelId, params);
+      this.setState({ user: model, token: token }, () => logger('RN Session: ', this.state));
     } catch (e) {
+      logger(e);
       await this.logout();
     } finally {
       this.setState({ loaded: true });
     }
   }
 
+  async updateSession() {
+    try {
+      let store = this.props.store;
+      let modelName = this.state.modelName;
+      let userId = LocalStorage.get('userId');
+      let token = LocalStorage.get('token');
+      let params = this.state.params;
+      return await this.loadSession(store, modelName, userId, token, params);
+    } catch (e) {
+      logger(e);
+    }
+  }
+
   async authenticate(modelName, data) {
     let store = this.props.store;
+    let modelName = this.state.modelName;
     await AsyncStorage.setItem('userId', data.id.toString());
     await AsyncStorage.setItem('token', data.token);
-    return await this.loadUser(store, modelName, data.id, data.token, {});
+    let params = this.state.params;
+    return await this.loadUser(store, modelName, data.id, data.token, params);
   }
 
   async logout() {
     await AsyncStorage.multiRemove(['userId', 'token']);
-    await this.setState({ token: '', user: {} }, () => () =>
-      logger('React Native Session: ', this.state)
-    );
+    await this.setState({ token: null, user: {}}, () => logger('RN Session: ', this.state));
   }
 
   authenticated() {
