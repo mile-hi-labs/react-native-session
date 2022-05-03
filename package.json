@@ -1,6 +1,6 @@
 {
   "name": "@mile-hi-labs/react-native-session",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "A session management library for React Native applications.",
   "homepage": "https://github.com/mile-hi-labs/react-native-session#readme",
   "license": "MIT",
@@ -13,7 +13,7 @@
   "repository": "https://github.com//mile-hi-labs/react-native-session.git",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
-  },  
+  },
   "bugs": {
     "url": "https://github.com//mile-hi-labs/react-native-session/issues"
   },
@@ -29,7 +29,7 @@
     "react native component"
   ],
   "scripts": {
-    "clean": "rimraf ./lib",
+    "clean": "rimraf ./lib && rimraf ./releases",
     "build": "webpack --env development",
     "build:prod": "webpack --env production",
     "preversion": "npm run clean",
@@ -39,6 +39,7 @@
     "postdeploy": "npm run git",
     "pregit": "git add .",
     "git": "git push --tags",
+    "postgit": "npm run clean",
     "format": "prettier --write src/**/*.jsx",
     "lint": "eslint src/**/*.js[x]"
   },
