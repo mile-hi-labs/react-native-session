@@ -10,10 +10,10 @@
     "email": "eric@erichubbell.com",
     "url": "https://github.com/ehubbell"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com//mile-hi-labs/react-native-session"
-  },
+  "repository": "https://github.com//mile-hi-labs/react-native-session.git",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },  
   "bugs": {
     "url": "https://github.com//mile-hi-labs/react-native-session/issues"
   },
@@ -34,7 +34,7 @@
     "build:prod": "webpack --env production",
     "preversion": "npm run clean",
     "version": "npm run deploy",
-    "predeploy": "npm run build && npm run build:prod",
+    "predeploy": "npm run build:prod",
     "deploy": "npm publish",
     "postdeploy": "npm run git",
     "pregit": "git add .",
